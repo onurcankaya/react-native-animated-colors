@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, StyleSheet } from 'react-native';
+import { AppRegistry, View, StyleSheet, Animated } from 'react-native';
 
 export default class AnimatedColors extends Component {
+  componentWillMount() {
+    this.animatedValue = new Animated.Value(1);
+  }
+
+  componentDidMount() {
+    Animated.timing(this.animatedValue, {
+      toValue: 150,
+      duration: 3000,
+    }).start();
+  }
 
   render() {
+    const interpolateColor = this.animatedValue.interpolate({
+      inputRange: [0, 150],
+      outputRange: ['rgb(0, 0, 0)', 'rgb(100, 150, 240)']
+    })
+    const animatedStyle = { backgroundColor: interpolateColor }
     return (
       <View style={styles.container}>
-        <View style={styles.box} />
+        <Animated.View style={[styles.box, animatedStyle]} />
       </View>
     );
   }
