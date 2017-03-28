@@ -18,7 +18,12 @@ export default class AnimatedColors extends Component {
       inputRange: [0, 150],
       outputRange: ['rgb(0, 0, 0)', 'rgb(100, 150, 240)']
     })
-    const animatedStyle = { backgroundColor: interpolateColor }
+    const animatedStyle = {
+      backgroundColor: interpolateColor,
+      transform: [
+        { translateY: this.animatedValue }
+      ]
+    }
     return (
       <View style={styles.container}>
         <Animated.View style={[styles.box, animatedStyle]} />
